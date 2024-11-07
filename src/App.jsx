@@ -6,7 +6,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Form from './components/Form';
 import Template from './components/Template';
-import Soon from './components/soon';
+import Login from './components/Login';
 
 
 const App = () => {
@@ -15,7 +15,8 @@ const App = () => {
 
         <div className="flex-grow p-4">
         <Routes>
-        <Route path="/" element={<Form />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/form" element={<Form />} />
         <Route path="/template" element={<Template />} />
       </Routes>
         </div>
