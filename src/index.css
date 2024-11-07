@@ -1,4 +1,30 @@
 /* src/index.css */
+
+/* Tailwind's base, components, and utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Global styles for dark background */
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #181818; /* Dark background color */
+  color: white; /* White text for contrast */
+  font-family: Arial, sans-serif; /* Optional: set a font */
+}
+
+/* Full-height container for the root */
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Optional: style the form container with a slightly lighter dark background */
+form {
+  background-color: #2c2c2c; /* Slightly lighter dark */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}

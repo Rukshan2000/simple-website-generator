@@ -42,14 +42,14 @@ const Form = () => {
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center min-h-screen bg-gray-900" // Set the dark background here
+      className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8" // Added padding for responsiveness
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
       <motion.h1
-        className="mb-8 text-4xl font-bold text-white"
+        className="mb-8 text-4xl font-bold text-center text-white" // Adjusted for better mobile display
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
@@ -57,7 +57,7 @@ const Form = () => {
         Generate Your Web Page
       </motion.h1>
       <motion.form
-        className="w-full max-w-4xl p-8 bg-gray-800 rounded-lg shadow-lg"
+        className="w-full max-w-xl p-6 bg-gray-800 rounded-lg shadow-lg sm:p-8" // Adjusted width for mobile
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeInOut' }}
@@ -69,7 +69,7 @@ const Form = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.2 }}
           >
-            <label htmlFor={field} className="block mb-2 text-gray-400 capitalize">
+            <label htmlFor={field} className="block mb-2 text-sm text-gray-400 capitalize sm:text-base">
               {field.replace(/([A-Z])/g, ' $1')}:
             </label>
             <input
@@ -77,9 +77,7 @@ const Form = () => {
               id={field}
               value={formData[field]}
               onChange={handleChange}
-              className={`w-full p-2 mb-4 text-gray-200 bg-gray-700 border ${
-                errors[field] ? 'border-red-500' : 'border-gray-600'
-              } rounded focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+              className={`w-full p-2 mb-4 text-gray-200 bg-gray-700 border ${errors[field] ? 'border-red-500' : 'border-gray-600'} rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base`} // Added responsive text size
             />
             {errors[field] && <span className="text-sm text-red-500">{errors[field]}</span>}
           </motion.div>
@@ -91,7 +89,7 @@ const Form = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <label htmlFor="bgGradient" className="block mb-2 text-gray-400">Select Background Gradient:</label>
+          <label htmlFor="bgGradient" className="block mb-2 text-sm text-gray-400 sm:text-base">Select Background Gradient:</label>
           <div
             className="w-full p-2 mb-4 rounded"
             style={{ background: formData.bgGradient, height: '50px' }}
@@ -100,7 +98,7 @@ const Form = () => {
             id="bgGradient"
             value={formData.bgGradient}
             onChange={handleChange}
-            className="w-full p-2 text-gray-200 bg-gray-700 border border-gray-600 rounded"
+            className="w-full p-2 text-sm text-gray-200 bg-gray-700 border border-gray-600 rounded sm:text-base"
           >
             {/* Gradient Options */}
             <option value="linear-gradient(135deg, #2c3e50, #34495e)">Dark Blue to Dark Gray</option>
@@ -120,7 +118,7 @@ const Form = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.8 }}
         >
-          <label htmlFor="btnGradient" className="block mb-2 text-gray-400">Select Button Gradient:</label>
+          <label htmlFor="btnGradient" className="block mb-2 text-sm text-gray-400 sm:text-base">Select Button Gradient:</label>
           <div
             className="w-full p-2 mb-4 rounded"
             style={{ background: formData.btnGradient, height: '50px' }}
@@ -129,7 +127,7 @@ const Form = () => {
             id="btnGradient"
             value={formData.btnGradient}
             onChange={handleChange}
-            className="w-full p-2 mb-4 text-gray-200 bg-gray-700 border border-gray-600 rounded"
+            className="w-full p-2 mb-4 text-sm text-gray-200 bg-gray-700 border border-gray-600 rounded sm:text-base"
           >
             {/* Button Gradient Options */}
             <option value="linear-gradient(135deg, #4e54c8, #8f94fb)">Blue to Light Blue</option>
@@ -142,7 +140,7 @@ const Form = () => {
 
         <motion.button
           onClick={handleSubmit}
-          className="w-full p-3 mt-6 text-white rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+          className="w-full p-3 mt-6 text-sm text-white rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 sm:text-base"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >

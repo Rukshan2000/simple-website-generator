@@ -24,7 +24,7 @@ const Login = () => {
 
   return (
     <motion.div 
-      className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-900"
+      className="flex flex-col items-center justify-center min-h-screen p-6 "
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
