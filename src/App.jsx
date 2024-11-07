@@ -15,7 +15,7 @@ const App = () => {
 
         <div className="flex-grow p-4">
         <Routes>
-        <Route path="/" element={<Soon />} />
+        <Route path="/" element={<Form />} />
         <Route path="/template" element={<Template />} />
       </Routes>
         </div>
