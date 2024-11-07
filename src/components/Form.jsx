@@ -27,109 +27,88 @@ const Form = () => {
   };
 
   return (
-    <motion.div 
-      className="container mx-auto p-8 min-h-screen flex flex-col justify-center items-center"
+    <motion.div
+      className="container flex flex-col items-center justify-center min-h-screen p-8 mx-auto bg-gray-900"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
+      style={{ background: '#0d0d0d' }}
     >
-      <motion.h1 
-        className="text-3xl font-bold text-gray-100 mb-6" 
-        initial={{ y: -20, opacity: 0 }}
+      <motion.h1
+        className="mb-8 text-4xl font-bold text-white"
+        initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
       >
         Generate Your Interactive Page
       </motion.h1>
-      <motion.form 
-        className="bg-gray-900 p-8 rounded-lg shadow-lg w-full max-w-lg"
+      <motion.form
+        className="w-full max-w-lg p-8 bg-gray-800 rounded-lg shadow-lg"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeInOut' }}
       >
-        <label htmlFor="username" className="block text-gray-400 mb-2">Name:</label>
-        <input 
-          type="text" 
-          id="username" 
-          value={formData.username} 
-          onChange={handleChange} 
-          required 
-          className="w-full p-2 mb-4 bg-gray-800 text-gray-200 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
+        {['username', 'whatsapp', 'youtube', 'facebook', 'instagram', 'qrLink'].map((field, index) => (
+          <motion.div
+            key={field}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.2 }}
+          >
+            <label htmlFor={field} className="block mb-2 text-gray-400 capitalize">
+              {field.replace(/([A-Z])/g, ' $1')}:
+            </label>
+            <input
+              type="text"
+              id={field}
+              value={formData[field]}
+              onChange={handleChange}
+              required
+              className="w-full p-2 mb-4 text-gray-200 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </motion.div>
+        ))}
 
-        <label htmlFor="whatsapp" className="block text-gray-400 mb-2">WhatsApp Number:</label>
-        <input 
-          type="text" 
-          id="whatsapp" 
-          value={formData.whatsapp} 
-          onChange={handleChange} 
-          required 
-          className="w-full p-2 mb-4 bg-gray-800 text-gray-200 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-
-        <label htmlFor="youtube" className="block text-gray-400 mb-2">YouTube Link:</label>
-        <input 
-          type="text" 
-          id="youtube" 
-          value={formData.youtube} 
-          onChange={handleChange} 
-          className="w-full p-2 mb-4 bg-gray-800 text-gray-200 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-
-        <label htmlFor="facebook" className="block text-gray-400 mb-2">Facebook Link:</label>
-        <input 
-          type="text" 
-          id="facebook" 
-          value={formData.facebook} 
-          onChange={handleChange} 
-          className="w-full p-2 mb-4 bg-gray-800 text-gray-200 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-
-        <label htmlFor="instagram" className="block text-gray-400 mb-2">Instagram Link:</label>
-        <input 
-          type="text" 
-          id="instagram" 
-          value={formData.instagram} 
-          onChange={handleChange} 
-          className="w-full p-2 mb-4 bg-gray-800 text-gray-200 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-
-        <label htmlFor="qrLink" className="block text-gray-400 mb-2">QR Code Link:</label>
-        <input 
-          type="text" 
-          id="qrLink" 
-          value={formData.qrLink} 
-          onChange={handleChange} 
-          className="w-full p-2 mb-4 bg-gray-800 text-gray-200 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-
-        <label htmlFor="bgGradient" className="block text-gray-400 mb-2">Select Background Gradient:</label>
-        <select 
-          id="bgGradient" 
-          value={formData.bgGradient} 
-          onChange={handleChange} 
-          className="w-full p-2 mb-4 bg-gray-800 text-gray-200 border border-gray-700 rounded"
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.6 }}
         >
-          <option value="linear-gradient(135deg, #1f4037, #99f2c8)">Green to Light Green</option>
-          <option value="linear-gradient(135deg, #ff7e5f, #feb47b)">Pink to Orange</option>
-        </select>
+          <label htmlFor="bgGradient" className="block mb-2 text-gray-400">Select Background Gradient:</label>
+          <select
+            id="bgGradient"
+            value={formData.bgGradient}
+            onChange={handleChange}
+            className="w-full p-2 mb-4 text-gray-200 bg-gray-700 border border-gray-600 rounded"
+          >
+            <option value="linear-gradient(135deg, #1f4037, #99f2c8)">Green to Light Green</option>
+            <option value="linear-gradient(135deg, #ff7e5f, #feb47b)">Pink to Orange</option>
+          </select>
+        </motion.div>
 
-        <label htmlFor="btnGradient" className="block text-gray-400 mb-2">Select Button Gradient:</label>
-        <select 
-          id="btnGradient" 
-          value={formData.btnGradient} 
-          onChange={handleChange} 
-          className="w-full p-2 mb-4 bg-gray-800 text-gray-200 border border-gray-700 rounded"
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.8 }}
         >
-          <option value="linear-gradient(135deg, #4e54c8, #8f94fb)">Purple to Blue</option>
-          <option value="linear-gradient(135deg, #f7971e, #ffd200)">Orange to Yellow</option>
-        </select>
+          <label htmlFor="btnGradient" className="block mb-2 text-gray-400">Select Button Gradient:</label>
+          <select
+            id="btnGradient"
+            value={formData.btnGradient}
+            onChange={handleChange}
+            className="w-full p-2 mb-4 text-gray-200 bg-gray-700 border border-gray-600 rounded"
+          >
+            <option value="linear-gradient(135deg, #4e54c8, #8f94fb)">Purple to Blue</option>
+            <option value="linear-gradient(135deg, #f7971e, #ffd200)">Orange to Yellow</option>
+          </select>
+        </motion.div>
 
-        <motion.button 
-          type="button" 
-          onClick={handleSubmit} 
-          className="w-full p-3 mt-4 bg-indigo-600 text-white rounded shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        <motion.button
+          type="button"
+          onClick={handleSubmit}
+          className="w-full p-3 mt-4 text-white rounded shadow-lg"
+          style={{ background: formData.btnGradient }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >

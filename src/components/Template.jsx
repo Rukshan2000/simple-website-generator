@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
+
 
 const Template = () => {
   const formData = JSON.parse(localStorage.getItem('formData')) || {};
@@ -124,7 +126,7 @@ const Template = () => {
 <body>
   <div class="shadow-box"></div>
   <div class="container">
-    <h1>Welcome to ${formData.username}'s Personal Page</h1>
+    <h1>Hi I am ${formData.username}.</h1>
     <div class="button-group">
       <a href="https://wa.me/${formData.whatsapp}" class="btn">Chat on WhatsApp</a>
       <a href="${formData.youtube}" class="btn">Visit YouTube</a>
@@ -174,30 +176,48 @@ const Template = () => {
   }, [formData]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
-      <h2 className="text-xl font-semibold mb-6">Your HTML file is being downloaded...</h2>
+    <motion.div
+      className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-900"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.h2
+        className="mb-6 text-2xl font-semibold text-gray-100"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+      >
+        Your HTML file is being downloaded...
+      </motion.h2>
 
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-2xl mx-auto">
-        <h3 className="text-lg font-bold mb-4">Steps to Deploy Your Page on Netlify:</h3>
-        <ul className="list-decimal list-inside space-y-3 text-left">
-          <li className="text-gray-700">
-            <span className="font-semibold">Go to:</span> <a href="https://app.netlify.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">Netlify</a> and sign in or sign up.
+      <motion.div
+        className="max-w-2xl p-8 mx-auto bg-gray-800 rounded-lg shadow-lg"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
+      >
+        <h3 className="mb-4 text-lg font-bold text-gray-100">Steps to Deploy Your Page on Netlify:</h3>
+        <ul className="space-y-3 text-left list-decimal list-inside">
+          <li className="text-gray-300">
+            <span className="font-semibold">Go to:</span> <a href="https://app.netlify.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">Netlify</a> and sign in or sign up.
           </li>
-          <li className="text-gray-700">
+          <li className="text-gray-300">
             <span className="font-semibold">Click on:</span> "New site from Git" or "Add New Site" and choose the drag and drop option.
           </li>
-          <li className="text-gray-700">
+          <li className="text-gray-300">
             <span className="font-semibold">Upload:</span> The HTML file you just downloaded by dragging and dropping it into the box.
           </li>
-          <li className="text-gray-700">
+          <li className="text-gray-300">
             Wait for the deployment process to complete. Netlify will give you a link to your site.
           </li>
-          <li className="text-gray-700">
+          <li className="text-gray-300">
             <span className="font-semibold">Share:</span> The link with others to show them your interactive page!
           </li>
         </ul>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
