@@ -14,6 +14,7 @@ const Form = () => {
     btnGradient: 'linear-gradient(135deg, #4e54c8, #8f94fb)',
   });
 
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,27 +22,42 @@ const Form = () => {
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Check required fields
+    ['username', 'whatsapp', 'youtube', 'facebook', 'instagram', 'qrLink'].forEach((field) => {
+      if (!formData[field]) {
+        newErrors[field] = `${field.replace(/([A-Z])/g, ' $1')} is required`;
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+
   const handleSubmit = () => {
-    localStorage.setItem('formData', JSON.stringify(formData));
-    navigate('/template');
+    if (validateForm()) {
+      localStorage.setItem('formData', JSON.stringify(formData));
+      navigate('/template');
+    }
   };
 
   return (
     <motion.div
-      className="container flex flex-col items-center justify-center min-h-screen p-8 mx-auto bg-gray-900"
+      className="container flex flex-col items-center justify-center min-h-screen p-8 mx-auto"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      style={{ background: '#0d0d0d' }}
     >
       <motion.h1
-        className="mb-8 text-4xl font-bold text-white"
+        className="mb-8 text-4xl font-bold text-black"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
       >
-        Generate Your Interactive Page
+        Generate Your Web Page
       </motion.h1>
       <motion.form
         className="w-full max-w-lg p-8 bg-gray-800 rounded-lg shadow-lg"
@@ -64,46 +80,76 @@ const Form = () => {
               id={field}
               value={formData[field]}
               onChange={handleChange}
-              required
-              className="w-full p-2 mb-4 text-gray-200 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className={`w-full p-2 mb-4 text-gray-200 bg-gray-700 border ${
+                errors[field] ? 'border-red-500' : 'border-gray-600'
+              } rounded focus:outline-none focus:ring-2 focus:ring-indigo-500`}
             />
+            {errors[field] && <span className="text-sm text-red-500">{errors[field]}</span>}
           </motion.div>
         ))}
 
+        {/* Background Gradient Selector */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6 }}
         >
           <label htmlFor="bgGradient" className="block mb-2 text-gray-400">Select Background Gradient:</label>
+          
+          {/* Gradient Preview Box */}
+          <div
+            className="w-full p-2 mb-4 rounded"
+            style={{ background: formData.bgGradient, height: '50px' }}
+          />
+          
           <select
             id="bgGradient"
             value={formData.bgGradient}
             onChange={handleChange}
-            className="w-full p-2 mb-4 text-gray-200 bg-gray-700 border border-gray-600 rounded"
+            className="w-full p-2 text-gray-200 bg-gray-700 border border-gray-600 rounded"
           >
-            <option value="linear-gradient(135deg, #1f4037, #99f2c8)">Green to Light Green</option>
-            <option value="linear-gradient(135deg, #ff7e5f, #feb47b)">Pink to Orange</option>
+            <option value="linear-gradient(135deg, #2c3e50, #34495e)">Dark Blue to Dark Gray</option>
+            <option value="linear-gradient(135deg, #4b0082, #8a2be2)">Indigo to Blue Violet</option>
+            <option value="linear-gradient(135deg, #232526, #414345)">Dark Gray to Darker Gray</option>
+            <option value="linear-gradient(135deg, #000000, #434343)">Black to Dark Gray</option>
+            <option value="linear-gradient(135deg, #5c258d, #4389a2)">Purple to Dark Cyan</option>
+            <option value="linear-gradient(135deg, #4e2a84, #7b4b9b)">Dark Purple to Lavender</option>
+            <option value="linear-gradient(135deg, #2b5876, #4e4376)">Dark Teal to Dark Purple</option>
+            <option value="linear-gradient(135deg, #141E30, #243B55)">Navy Blue to Dark Blue</option>
           </select>
         </motion.div>
 
+        {/* Button Gradient Selector */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.8 }}
         >
           <label htmlFor="btnGradient" className="block mb-2 text-gray-400">Select Button Gradient:</label>
+
+          <div
+            className="w-full p-2 mb-4 rounded"
+            style={{ background: formData.btnGradient, height: '50px' }}
+          />
           <select
             id="btnGradient"
             value={formData.btnGradient}
             onChange={handleChange}
             className="w-full p-2 mb-4 text-gray-200 bg-gray-700 border border-gray-600 rounded"
           >
-            <option value="linear-gradient(135deg, #4e54c8, #8f94fb)">Purple to Blue</option>
-            <option value="linear-gradient(135deg, #f7971e, #ffd200)">Orange to Yellow</option>
+            <option value="linear-gradient(135deg, #2c3e50, #34495e)">Dark Blue to Dark Gray</option>
+            <option value="linear-gradient(135deg, #4b0082, #8a2be2)">Indigo to Blue Violet</option>
+            <option value="linear-gradient(135deg, #232526, #414345)">Dark Gray to Darker Gray</option>
+            <option value="linear-gradient(135deg, #000000, #434343)">Black to Dark Gray</option>
+            <option value="linear-gradient(135deg, #5c258d, #4389a2)">Purple to Dark Cyan</option>
+            <option value="linear-gradient(135deg, #4e2a84, #7b4b9b)">Dark Purple to Lavender</option>
+            <option value="linear-gradient(135deg, #2b5876, #4e4376)">Dark Teal to Dark Purple</option>
+            <option value="linear-gradient(135deg, #141E30, #243B55)">Navy Blue to Dark Blue</option>
+
           </select>
         </motion.div>
 
+        {/* Submit Button */}
         <motion.button
           type="button"
           onClick={handleSubmit}
