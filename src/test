@@ -1,0 +1,177 @@
+import { useState } from 'react';
+
+function App() {
+  const [formData, setFormData] = useState({
+    username: '',
+    whatsapp: '',
+    youtube: '',
+    facebook: '',
+    instagram: '',
+    qrLink: '',
+    bgGradient: 'linear-gradient(135deg, #1f4037, #99f2c8)',
+    btnGradient: 'linear-gradient(135deg, #4e54c8, #8f94fb)',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const generateHTML = () => {
+    const { username, whatsapp, youtube, facebook, instagram, qrLink, bgGradient, btnGradient } = formData;
+    const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${username} - web page</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+    body {
+      background: ${bgGradient};
+      background-size: 400% 400%;
+      animation: gradientAnimation 12s ease infinite;
+      text-align: center;
+    }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .shadow-box {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 0, 0, 0.6), transparent);
+      animation: shadowPulse 3s ease-in-out infinite;
+    }
+    @keyframes shadowPulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+    .container {
+      position: relative;
+      animation: fadeIn 1.5s ease-in-out forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 30px;
+      letter-spacing: 1.5px;
+      animation: fadeSlideDown 1s ease forwards;
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    @keyframes fadeSlideDown {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .button-group .btn {
+      display: block;
+      width: 220px;
+      margin: 15px auto;
+      padding: 15px;
+      font-size: 1.2em;
+      color: #fff;
+      background: ${btnGradient};
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .button-group .btn:hover {
+      background: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="shadow-box"></div>
+  <div class="container">
+    <h1>Welcome to ${username}'s Personal Page</h1>
+    <div class="button-group">
+      <a href="https://wa.me/${whatsapp}" class="btn">Chat on WhatsApp</a>
+      <a href="${youtube}" class="btn">Visit YouTube</a>
+      <a href="${facebook}" class="btn">Like on Facebook</a>
+      <a href="${instagram}" class="btn">Follow on Instagram</a>
+      <a href="${qrLink}" class="btn">Scan My QR</a>
+    </div>
+  </div>
+</body>
+</html>`;
+
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${username}_website.html`;
+    link.click();
+  };
+
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">Generate Your Interactive Page</h1>
+      <form className="bg-white p-6 shadow-lg rounded-lg">
+        <div className="mb-4">
+          <label htmlFor="username" className="block mb-2">Name:</label>
+          <input type="text" id="username" className="w-full p-2 border" onChange={handleChange} required />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="whatsapp" className="block mb-2">WhatsApp Number:</label>
+          <input type="text" id="whatsapp" className="w-full p-2 border" onChange={handleChange} required />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="youtube" className="block mb-2">YouTube Link:</label>
+          <input type="text" id="youtube" className="w-full p-2 border" onChange={handleChange} />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="facebook" className="block mb-2">Facebook Link:</label>
+          <input type="text" id="facebook" className="w-full p-2 border" onChange={handleChange} />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="instagram" className="block mb-2">Instagram Link:</label>
+          <input type="text" id="instagram" className="w-full p-2 border" onChange={handleChange} />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="qrLink" className="block mb-2">QR Code Link:</label>
+          <input type="text" id="qrLink" className="w-full p-2 border" onChange={handleChange} />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="bgGradient" className="block mb-2">Select Background Gradient:</label>
+          <select id="bgGradient" className="w-full p-2 border" onChange={handleChange}>
+            <option value="linear-gradient(135deg, #1f4037, #99f2c8)">Green to Light Green</option>
+            <option value="linear-gradient(135deg, #ff7e5f, #feb47b)">Pink to Orange</option>
+            {/* Add other gradient options here */}
+          </select>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="btnGradient" className="block mb-2">Select Button Gradient:</label>
+          <select id="btnGradient" className="w-full p-2 border" onChange={handleChange}>
+            <option value="linear-gradient(135deg, #4e54c8, #8f94fb)">Purple to Blue</option>
+            <option value="linear-gradient(135deg, #f7971e, #ffd200)">Orange to Yellow</option>
+            {/* Add other gradient options here */}
+          </select>
+        </div>
+        <button type="button" onClick={generateHTML} className="bg-gray-800 text-white p-3 rounded-lg mt-4">Generate Website</button>
+      </form>
+    </div>
+  );
+}
+
+export default App;
