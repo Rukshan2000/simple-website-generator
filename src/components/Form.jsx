@@ -35,10 +35,12 @@ const Form = () => {
 
   const handleSubmit = () => {
     if (validateForm()) {
+      console.log('Form Data:', formData); // Debugging
       localStorage.setItem('formData', JSON.stringify(formData));
       navigate('/template');
     }
   };
+  
 
   return (
     <motion.div
