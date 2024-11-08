@@ -13,9 +13,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Check if the username and password are both "admin"
-    if (credentials.username === 'admin' && credentials.password === 'admin') {
-      // Redirect to form page
+    if (credentials.username === 'white_devil' && credentials.password === 'devil@123') {
       navigate('/form');
     } else {
       alert('Incorrect username or password');
@@ -24,7 +22,7 @@ const Login = () => {
 
   return (
     <motion.div 
-      className="flex flex-col items-center justify-center min-h-screen p-6 "
+      className="flex flex-col items-center justify-center min-h-screen p-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -75,6 +73,16 @@ const Login = () => {
           Login
         </motion.button>
       </motion.form>
+
+      {/* Animated gradient text */}
+      <motion.div 
+        className="mt-6 text-lg font-semibold text-transparent bg-gradient-to-r from-red-500 via-blue-500 to-red-500 bg-clip-text"
+        animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+        transition={{ duration: 3, ease: 'linear', repeat: Infinity }}
+        style={{ backgroundSize: '200%' }}
+      >
+        DEVELOPED BY WHITE DEVIL TEAM
+      </motion.div>
     </motion.div>
   );
 };
