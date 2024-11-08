@@ -63,6 +63,7 @@ const Form = () => {
               id={field}
               value={formData[field]}
               onChange={handleChange}
+              required 
               className="w-full p-2 mb-4 text-sm text-gray-200 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-base" // Added responsive text size
             />
           </motion.div>
@@ -83,6 +84,7 @@ const Form = () => {
             id="bgGradient"
             value={formData.bgGradient}
             onChange={handleChange}
+            required 
             className="w-full p-2 text-sm text-gray-200 bg-gray-700 border border-gray-600 rounded sm:text-base"
           >
             {/* Gradient Options */}
@@ -112,6 +114,7 @@ const Form = () => {
             id="btnGradient"
             value={formData.btnGradient}
             onChange={handleChange}
+            required 
             className="w-full p-2 mb-4 text-sm text-gray-200 bg-gray-700 border border-gray-600 rounded sm:text-base"
           >
             {/* Button Gradient Options */}
