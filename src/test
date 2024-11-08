@@ -1,29 +1,9 @@
-import { useState } from 'react';
-
-function App() {
-  const [formData, setFormData] = useState({
-    username: '',
-    whatsapp: '',
-    youtube: '',
-    facebook: '',
-    instagram: '',
-    qrLink: '',
-    bgGradient: 'linear-gradient(135deg, #1f4037, #99f2c8)',
-    btnGradient: 'linear-gradient(135deg, #4e54c8, #8f94fb)',
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
-
-  const generateHTML = () => {
-    const { username, whatsapp, youtube, facebook, instagram, qrLink, bgGradient, btnGradient } = formData;
-    const htmlContent = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${username} - web page</title>
+  <title>${formData.username} - web page</title>
   <style>
     body, html {
       margin: 0;
@@ -37,7 +17,7 @@ function App() {
       overflow: hidden;
     }
     body {
-      background: ${bgGradient};
+      background: ${formData.bgGradient};
       background-size: 400% 400%;
       animation: gradientAnimation 12s ease infinite;
       text-align: center;
@@ -88,7 +68,7 @@ function App() {
       padding: 15px;
       font-size: 1.2em;
       color: #fff;
-      background: ${btnGradient};
+      background: ${formData.btnGradient};
       border: none;
       border-radius: 50px;
       text-decoration: none;
@@ -99,79 +79,79 @@ function App() {
     .button-group .btn:hover {
       background: #333;
     }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      position: relative;
+    }
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 30px;
+      color: #333;
+      cursor: pointer;
+    }
+    #qrCodeCanvas {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="shadow-box"></div>
   <div class="container">
-    <h1>Welcome to ${username}'s Personal Page</h1>
+    <h1>Hi I am ${formData.username}.</h1>
     <div class="button-group">
-      <a href="https://wa.me/${whatsapp}" class="btn">Chat on WhatsApp</a>
-      <a href="${youtube}" class="btn">Visit YouTube</a>
-      <a href="${facebook}" class="btn">Like on Facebook</a>
-      <a href="${instagram}" class="btn">Follow on Instagram</a>
-      <a href="${qrLink}" class="btn">Scan My QR</a>
+      <a href="https://wa.me/${formData.whatsapp}" class="btn">Chat on WhatsApp</a>
+      <a href="${formData.youtube}" class="btn">Visit YouTube</a>
+      <a href="${formData.facebook}" class="btn">Like on Facebook</a>
+      <a href="${formData.instagram}" class="btn">Follow on Instagram</a>
+      <a href="javascript:void(0)" class="btn" onclick="openModal()">Scan My QR</a>
     </div>
   </div>
-</body>
-</html>`;
 
-    const blob = new Blob([htmlContent], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${username}_website.html`;
-    link.click();
-  };
-
-  return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Generate Your Interactive Page</h1>
-      <form className="bg-white p-6 shadow-lg rounded-lg">
-        <div className="mb-4">
-          <label htmlFor="username" className="block mb-2">Name:</label>
-          <input type="text" id="username" className="w-full p-2 border" onChange={handleChange} required />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="whatsapp" className="block mb-2">WhatsApp Number:</label>
-          <input type="text" id="whatsapp" className="w-full p-2 border" onChange={handleChange} required />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="youtube" className="block mb-2">YouTube Link:</label>
-          <input type="text" id="youtube" className="w-full p-2 border" onChange={handleChange} />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="facebook" className="block mb-2">Facebook Link:</label>
-          <input type="text" id="facebook" className="w-full p-2 border" onChange={handleChange} />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="instagram" className="block mb-2">Instagram Link:</label>
-          <input type="text" id="instagram" className="w-full p-2 border" onChange={handleChange} />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="qrLink" className="block mb-2">QR Code Link:</label>
-          <input type="text" id="qrLink" className="w-full p-2 border" onChange={handleChange} />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="bgGradient" className="block mb-2">Select Background Gradient:</label>
-          <select id="bgGradient" className="w-full p-2 border" onChange={handleChange}>
-            <option value="linear-gradient(135deg, #1f4037, #99f2c8)">Green to Light Green</option>
-            <option value="linear-gradient(135deg, #ff7e5f, #feb47b)">Pink to Orange</option>
-            {/* Add other gradient options here */}
-          </select>
-        </div>
-        <div className="mb-4">
-          <label htmlFor="btnGradient" className="block mb-2">Select Button Gradient:</label>
-          <select id="btnGradient" className="w-full p-2 border" onChange={handleChange}>
-            <option value="linear-gradient(135deg, #4e54c8, #8f94fb)">Purple to Blue</option>
-            <option value="linear-gradient(135deg, #f7971e, #ffd200)">Orange to Yellow</option>
-            {/* Add other gradient options here */}
-          </select>
-        </div>
-        <button type="button" onClick={generateHTML} className="bg-gray-800 text-white p-3 rounded-lg mt-4">Generate Website</button>
-      </form>
+  <!-- Modal -->
+  <div id="qrModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Scan the QR Code</h2>
+      <div id="qrCodeCanvas"></div>
     </div>
-  );
-}
+  </div>
 
-export default App;
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    function openModal() {
+      document.getElementById('qrModal').style.display = 'flex';
+      new QRCode(document.getElementById("qrCodeCanvas"), "${formData.qrLink}");
+    }
+    function closeModal() {
+      document.getElementById('qrModal').style.display = 'none';
+      document.getElementById('qrCodeCanvas').innerHTML = ''; // clear QR code when modal closes
+    }
+
+    // Close modal when clicking outside content
+    window.onclick = function(event) {
+      if (event.target == document.getElementById('qrModal')) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

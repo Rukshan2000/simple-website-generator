@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const Template = () => {
   const formData = JSON.parse(localStorage.getItem('formData')) || {};
+  const [downloadReady, setDownloadReady] = useState(false);
 
-  useEffect(() => {
-    // Trigger download of the HTML file when the component loads
+  const handleDownload = () => {
     const blob = new Blob([
-      `
-      
-      <!DOCTYPE html>
+      `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -165,15 +163,14 @@ const Template = () => {
     }
   </script>
 </body>
-</html>
-`
+</html>`
     ], { type: 'text/html' });
 
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = `${formData.username}-page.html`;
     link.click();
-  }, [formData]);
+  };
 
   return (
     <motion.div
@@ -191,8 +188,10 @@ const Template = () => {
       >
         Your site is ready to download!
       </motion.h2>
+
+      {/* Download button triggers file download */}
       <motion.button
-        onClick={() => window.location.reload()}
+        onClick={handleDownload}
         className="p-3 mt-4 text-white rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
         initial={{ scale: 0.9 }}
         animate={{ scale: 1 }}
