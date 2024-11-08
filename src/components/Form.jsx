@@ -23,19 +23,19 @@ const Form = () => {
 
   const handleSubmit = () => {
     localStorage.setItem('formData', JSON.stringify(formData));
-    navigate('/template'); // This should work as long as '/template' exists
+    navigate('/template'); // Navigate to template page
   };
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8" // Added padding for responsiveness
+      className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
       <motion.h1
-        className="mb-8 text-4xl font-bold text-center text-white" // Adjusted for better mobile display
+        className="mb-8 text-4xl font-bold text-center text-white"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
@@ -43,7 +43,7 @@ const Form = () => {
         Generate Your Web Page
       </motion.h1>
       <motion.form
-        className="w-full max-w-xl p-6 bg-gray-800 rounded-lg shadow-lg sm:p-8" // Adjusted width for mobile
+        className="w-full max-w-xl p-6 bg-gray-800 rounded-lg shadow-lg sm:p-8"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeInOut' }}
@@ -63,7 +63,7 @@ const Form = () => {
               id={field}
               value={formData[field]}
               onChange={handleChange}
-              className="w-full p-2 mb-4 text-sm text-gray-200 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-base" // Added responsive text size
+              className="w-full p-2 mb-4 text-sm text-gray-200 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-base"
             />
           </motion.div>
         ))}

@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-
 const Template = () => {
   const formData = JSON.parse(localStorage.getItem('formData')) || {};
 
   useEffect(() => {
     // Trigger download of the HTML file when the component loads
     const blob = new Blob([
-      `<!DOCTYPE html>
+      `
+      
+      <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -165,7 +166,6 @@ const Template = () => {
   </script>
 </body>
 </html>
-
 `
     ], { type: 'text/html' });
 
@@ -189,34 +189,17 @@ const Template = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
       >
-        Your HTML file is being downloaded...
+        Your site is ready to download!
       </motion.h2>
-
-      <motion.div
-        className="max-w-2xl p-8 mx-auto bg-gray-800 rounded-lg shadow-lg"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6, ease: 'easeInOut' }}
+      <motion.button
+        onClick={() => window.location.reload()}
+        className="p-3 mt-4 text-white rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+        initial={{ scale: 0.9 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.6 }}
       >
-        <h3 className="mb-4 text-lg font-bold text-gray-100">Steps to Deploy Your Page on Netlify:</h3>
-        <ul className="space-y-3 text-left list-decimal list-inside">
-          <li className="text-gray-300">
-            <span className="font-semibold">Go to:</span> <a href="https://app.netlify.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">Netlify</a> and sign in or sign up.
-          </li>
-          <li className="text-gray-300">
-            <span className="font-semibold">Click on:</span> "New site from Git" or "Add New Site" and choose the drag and drop option.
-          </li>
-          <li className="text-gray-300">
-            <span className="font-semibold">Upload:</span> The HTML file you just downloaded by dragging and dropping it into the box.
-          </li>
-          <li className="text-gray-300">
-            Wait for the deployment process to complete. Netlify will give you a link to your site.
-          </li>
-          <li className="text-gray-300">
-            <span className="font-semibold">Share:</span> The link with others to show them your interactive page!
-          </li>
-        </ul>
-      </motion.div>
+        Download Your Site
+      </motion.button>
     </motion.div>
   );
 };
