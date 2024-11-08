@@ -14,7 +14,6 @@ const Form = () => {
     btnGradient: 'linear-gradient(135deg, #4e54c8, #8f94fb)',
   });
 
-  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -22,25 +21,10 @@ const Form = () => {
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    ['username', 'whatsapp', 'youtube', 'facebook', 'instagram', 'qrLink'].forEach((field) => {
-      if (!formData[field]) {
-        newErrors[field] = `${field.replace(/([A-Z])/g, ' $1')} is required`;
-      }
-    });
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // No errors
-  };
-
   const handleSubmit = () => {
-    if (validateForm()) {
-      console.log('Form Data:', formData); // Debugging
-      localStorage.setItem('formData', JSON.stringify(formData));
-      navigate('/template');
-    }
+    localStorage.setItem('formData', JSON.stringify(formData));
+    navigate('/template'); // This should work as long as '/template' exists
   };
-  
 
   return (
     <motion.div
@@ -79,9 +63,8 @@ const Form = () => {
               id={field}
               value={formData[field]}
               onChange={handleChange}
-              className={`w-full p-2 mb-4 text-gray-200 bg-gray-700 border ${errors[field] ? 'border-red-500' : 'border-gray-600'} rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base`} // Added responsive text size
+              className="w-full p-2 mb-4 text-sm text-gray-200 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-base" // Added responsive text size
             />
-            {errors[field] && <span className="text-sm text-red-500">{errors[field]}</span>}
           </motion.div>
         ))}
 
